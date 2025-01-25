@@ -1,4 +1,5 @@
-import { Collection, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
+import Course from './course.js'
 
 export default class Database {
   // constructor() {
@@ -34,57 +35,17 @@ export default class Database {
     }
   }
 
-  async createCourseEntry({ id, courseId }) {
-    try {
-      const userEnrolled = await Database.collection.findOne({ id });
-      if (userEnrolled?.courses.includes(courseId)) {
-        console.log(
-          `Error: User ${id} is already enrolled in course ${courseId}!`
-        );
-        return;
-      }
-      await Database.collection.updateOne(
-        { id },
-        { $push: { courses: courseId } },
-        { upsert: true }
-      );
-      console.log(`Added course entry ${courseId} to user ${id}!`);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  course = new Course();
 
-  async deleteCourseEntry({ id, courseId }) {
-    try {
-      const userEnrolled = await Database.collection.findOne({ id });
-      console.log(userEnrolled);
-      if (!(userEnrolled?.courses.includes(courseId))) {
-        console.log(`Error: User ${id} is not enrolled in course ${courseId}!`);
-        return;
-      }
-      const item = {
-        id: id,
-        courses: userEnrolled.courses.filter((course) => course !== courseId),
-      };
-      await Database.collection.updateOne(
-        { id },
-        { $push: { courses: courseId } },
-        { upsert: true }
-      );
-      console.log(`Deleted course entry ${courseId} from user ${id}!`);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  async createCourse({
+    courseId,
+    courseName,
+    courseDuration,
+}) {
+    
+}
 
-  async getEnrolledCourses({ id }) {
-    try {
-      const enrolled = await Database.collection.findOne({ id });
-      console.log(enrolled);
-      if (!enrolled) return [];
-      return enrolled.courses;
-    } catch (err) {
-      console.log(err);
-    }
-  }
+async deleteCourse({
+    courseId,
+}){}
 }

@@ -1,6 +1,6 @@
 import express from "express";
 import { config } from "dotenv";
-import  router from "./routes/course.js";
+import { courseRouter } from "./routes/course.js";
 import Database from "./database/database.js";
 
 config();
@@ -12,13 +12,13 @@ const app = express();
 const port = 8080;
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.status(200).json({ msg: "server is up n running!" });
 });
 
-app.use("/course", router);
+app.use("/course", courseRouter);
 
 app.listen(port, (err) => {
   console.log(

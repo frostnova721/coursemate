@@ -9,7 +9,7 @@ router.post("/enroll", (req, res) => {
     return res.status(400).json({ msg: "missing userId or courseId" });
   }
   const db = new Database();
-  db.createCourseEntry({ id: userId, courseId: courseId });
+  db.course.createCourseEntry({ id: userId, courseId: courseId });
   res.status(200).json({ msg: "create route" });
 });
 
@@ -21,16 +21,16 @@ router.get("/optout", (req, res) => {
 
   const db = new Database();
 
-  db.deleteCourseEntry({ id: userId, courseId: course });
+  db.course.deleteCourseEntry({ id: parseInt(userId), courseId: parseInt(course) });
   res.status(200).json({ msg: "delete route" });
 });
 
 router.get("/list", async (req, res) => {
   const user = req.query.user;
   if (!user) return res.status(400).json({ msg: "User id not specified" });
-  const resp = await new Database().getEnrolledCourses({ id: user });
+  const resp = await new Database().course.getEnrolledCourses({ id: parseInt(user) });
   console.log(resp);
   res.status(200).json(resp);
 });
 
-export default router;
+export const courseRouter = router;
