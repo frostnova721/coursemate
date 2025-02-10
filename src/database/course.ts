@@ -17,6 +17,7 @@ export default class Course {
       }
       await Database.collection.updateOne(
         { id },
+        //@ts-ignore
         { $push: { courses: courseId } },
         { upsert: true }
       );
@@ -39,10 +40,10 @@ export default class Course {
         console.log(`Error: User ${id} is not enrolled in course ${courseId}!`);
         return;
       }
-      await Database.collection.updateOne(
+      await Database.collection.deleteOne(
         { id },
+        //@ts-ignore
         { $push: { courses: courseId } },
-        { upsert: true }
       );
       console.log(`Deleted course entry ${courseId} from user ${id}!`);
     } catch (err) {

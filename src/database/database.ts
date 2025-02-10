@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { Collection, MongoClient } from "mongodb";
 import Course from './course.js'
 
 export default class Database {
@@ -7,17 +7,22 @@ export default class Database {
   //         this.connect();
   //     }
   // }
+  
+  static client: MongoClient | null = null;
 
-  /** @type {MongoClient} */
-  static client = null;
-
-  /** @type {Collection} */
-  static collection = null;
+  static collection: Collection | null = null;
 
   async connect() {
     try {
       if (Database.client != null) return true;
+
       const uri = process.env.MONGO_URI;
+
+      if(!uri) {
+        console.error("MONGO URI IS NOT PROVIDED");
+        return;
+      }
+
       Database.client = new MongoClient(uri);
 
       console.log("Connecting to database...");
