@@ -32,7 +32,7 @@ export default class Course {
    * @param {{userId: int, courseId: int}}
    * @returns {void} nothing
    */
-  async deleteCourseEntry({ id, courseId }) {
+  async deleteCourseEntry({ id, courseId }: {id: number, courseId: number}) {
     try {
       const userEnrolled = await Database.collection.findOne({ id });
       console.log(userEnrolled);
@@ -42,8 +42,6 @@ export default class Course {
       }
       await Database.collection.deleteOne(
         { id },
-        //@ts-ignore
-        { $push: { courses: courseId } },
       );
       console.log(`Deleted course entry ${courseId} from user ${id}!`);
     } catch (err) {

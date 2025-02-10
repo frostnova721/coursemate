@@ -1,13 +1,9 @@
 import { Collection, MongoClient } from "mongodb";
 import Course from './course.js'
+import Admin from "./admin.js";
+import mongoose from "mongoose";
 
-export default class Database {
-  // constructor() {
-  //     if(this.client === null) {
-  //         this.connect();
-  //     }
-  // }
-  
+export default class Database {  
   static client: MongoClient | null = null;
 
   static collection: Collection | null = null;
@@ -25,6 +21,10 @@ export default class Database {
 
       Database.client = new MongoClient(uri);
 
+      console.log("Connecting mongoose...");
+      await mongoose.connect(uri);
+      console.log("Mongoose connected!");
+
       console.log("Connecting to database...");
 
       await Database.client.connect();
@@ -40,17 +40,7 @@ export default class Database {
     }
   }
 
-  course = new Course();
+  public course = new Course();
 
-  async createCourse({
-    courseId,
-    courseName,
-    courseDuration,
-}) {
-    
-}
-
-async deleteCourse({
-    courseId,
-}){}
+  public admin = new Admin();
 }

@@ -2,6 +2,7 @@ import express from "express";
 import { config } from "dotenv";
 import { courseRouter } from "./routes/course.js";
 import Database from "./database/database.js";
+import { adminRouter } from "./routes/admin.js";
 
 config();
 
@@ -19,6 +20,8 @@ new Database().connect().then(() => {
   });
 
   app.use("/course", courseRouter);
+
+  app.use('/admin', adminRouter)
 
   app.listen(port, () => {
     console.log(
