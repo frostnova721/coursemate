@@ -55,9 +55,7 @@ export default class Course {
    */
   async getEnrolledCourses(id: number): Promise<ICourse[] | null> {
     try {
-      const enrolled = await User.findOne({ id }).populate<{courses: ICourse[]}>(
-        "courses"
-      );
+      const enrolled = await User.findOne({ id }).populate<{ courses: ICourse[]}>("courses");
       console.log(enrolled);
       return enrolled.courses;
     } catch (err) {
@@ -66,6 +64,6 @@ export default class Course {
   }
 
   async listAllCourses(): Promise<ICourse[]> {
-    return CourseSchema.find().populate<IUser>("studentsEnrolled") ?? [];
+    return await CourseSchema.find().populate<IUser>("studentsEnrolled") ?? [];
   }
 }

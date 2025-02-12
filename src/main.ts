@@ -3,7 +3,7 @@ import { config } from "dotenv";
 import { courseRouter } from "./routes/course.js";
 import Database from "./database/database.js";
 import { adminRouter } from "./routes/admin.js";
-import { authRouter } from "./routes/auth.js";
+import { usersRouter } from "./routes/users.js";
 
 config();
 
@@ -19,11 +19,11 @@ new Database().connect().then(() => {
     res.status(200).json({ msg: "server is up n running!" });
   });
 
-  app.use("/course", courseRouter);
+  app.use(courseRouter);
 
   app.use("/admin", adminRouter);
 
-  app.use("/auth", authRouter);
+  app.use(usersRouter);
 
   app.listen(port, () => {
     console.log(
