@@ -1,7 +1,7 @@
-import { Collection, MongoClient } from "mongodb";
-import Course from './course.js'
-import Admin from "./admin.js";
-import mongoose from "mongoose";
+import { Collection, MongoClient } from "mongodb"; // import mogodb client
+import Course from './course.js' // import course class
+import Admin from "./admin.js"; // import admin class
+import mongoose from "mongoose"; // import mongoose for schema management
 
 export default class Database {  
   static client: MongoClient | null = null;
@@ -14,7 +14,7 @@ export default class Database {
 
       const uri = process.env.MONGO_URI;
 
-      if(!uri) {
+      if(!uri) { 
         console.error("MONGO URI IS NOT PROVIDED");
         return;
       }
@@ -22,12 +22,12 @@ export default class Database {
       Database.client = new MongoClient(uri);
 
       console.log("Connecting mongoose...");
-      await mongoose.connect(uri);
+      await mongoose.connect(uri); // connect mongoose
       console.log("Mongoose connected!");
 
       console.log("Connecting to database...");
 
-      await Database.client.connect();
+      await Database.client.connect(); // connect mongodb
 
       console.log("Connected to database!");
 
@@ -40,7 +40,7 @@ export default class Database {
     }
   }
 
-  public course = new Course();
+  public course = new Course(); // instance of course
 
-  public admin = new Admin();
+  public admin = new Admin(); // instance of admin
 }
