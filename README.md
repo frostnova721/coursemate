@@ -31,6 +31,7 @@ This backend provides APIs for managing:
 routes: 
 - `/create` **POST** creates a course with given attributes.
 - `/delete` **GET** deletes a course with given attributes.
+- `list` **GET** returns the array of courses
 ### /course
 routes:
 - `/enroll` **POST** enrolls the user to a course.

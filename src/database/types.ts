@@ -5,7 +5,8 @@ export interface ICourse {
     title: string; //course title ofcourse
     description: string;
     category: string[];
-    duration: number; // in days 
+    duration: number; // in hours
+    studentsEnrolled: mongoose.Types.ObjectId[];
 }
 
 export interface IUser {
@@ -14,4 +15,5 @@ export interface IUser {
     lname: string;
     courses: mongoose.Types.ObjectId[];
     email?: string;
+    isAdmin?: boolean;
 }

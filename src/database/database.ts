@@ -1,16 +1,13 @@
-import { Collection, MongoClient } from "mongodb";
 import Course from './course.js'
 import Admin from "./admin.js";
 import mongoose from "mongoose";
+import { UserDB } from './user.js';
 
-export default class Database {  
-  static client: MongoClient | null = null;
-
-  static collection: Collection | null = null;
+export default class Database {
 
   async connect() {
     try {
-      if (Database.client != null) return true;
+      // if (Database.client != null) return true;
 
       const uri = process.env.MONGO_URI;
 
@@ -19,20 +16,17 @@ export default class Database {
         return;
       }
 
-      Database.client = new MongoClient(uri);
-
-      console.log("Connecting mongoose...");
-      await mongoose.connect(uri);
-      console.log("Mongoose connected!");
+      // Database.client = new MongoClient(uri);
 
       console.log("Connecting to database...");
 
-      await Database.client.connect();
+      await mongoose.connect(uri);
+      // await Database.client.connect();
 
       console.log("Connected to database!");
 
-      const db = Database.client.db("coursemate");
-      Database.collection = db.collection("entries");
+      // const db = Database.client.db("coursemate");
+      // Database.collection = db.collection("entries");
       return true;
     } catch (err) {
       console.error("Error connecting to database: ", err);
@@ -43,4 +37,6 @@ export default class Database {
   public course = new Course();
 
   public admin = new Admin();
+
+  public user = new UserDB();
 }

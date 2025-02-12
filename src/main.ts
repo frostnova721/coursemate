@@ -3,11 +3,11 @@ import { config } from "dotenv";
 import { courseRouter } from "./routes/course.js";
 import Database from "./database/database.js";
 import { adminRouter } from "./routes/admin.js";
+import { authRouter } from "./routes/auth.js";
 
 config();
 
 new Database().connect().then(() => {
-
   const app = express();
 
   const port = 8080;
@@ -21,7 +21,9 @@ new Database().connect().then(() => {
 
   app.use("/course", courseRouter);
 
-  app.use('/admin', adminRouter)
+  app.use("/admin", adminRouter);
+
+  app.use("/auth", authRouter);
 
   app.listen(port, () => {
     console.log(

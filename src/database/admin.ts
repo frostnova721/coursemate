@@ -14,4 +14,8 @@ export default class Admin {
     }) { 
         await Course.deleteOne({id: courseId})
     }
+
+    async getCourse(courseId: number): Promise<ICourse> {
+        return await Course.findOne({id: courseId});
+    }
 }
