@@ -53,4 +53,17 @@ router.get("/users", async (req, res) => {
   return res.status(200).json(users);
 });
 
+router.delete("/users/:userId", async (req, res) => {
+  const { userId } = req.params;
+  if (!userId) return res.status(400).json({ msg: "User ID is required" });
+
+  try {
+    const response = await db.user.deleteUser(parseInt(userId)); 
+    return res.status(200).json(response);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ msg: "Error deleting user" });
+  }
+});
+
 export const usersRouter = router;
