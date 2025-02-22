@@ -34,7 +34,6 @@ router.post("/courses", async (req, res) => {
       description: description,
       duration,
       category,
-      studentsEnrolled: []
     });
 
     res.status(201).json({ msg: "admin course create" });
@@ -59,7 +58,6 @@ router.get("/courses", async (req, res) => {
       category: it.category,
       description: it.description,
       duration: it.duration,
-      studentsEnrolled: it.studentsEnrolled,
     };
   });
   return res.status(200).json(courses);

@@ -6,7 +6,6 @@ export interface ICourse {
     description: string;
     category: string[];
     duration: number; // in hours
-    studentsEnrolled: mongoose.Types.ObjectId[];
 }
 
 export interface IUser {
