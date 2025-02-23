@@ -3,19 +3,14 @@ import { ICourse } from "./types";
 
 export default class Admin {
     async createCourse(course: ICourse) {
-        await Course.updateOne({ id: course.id },
-            { $set: course },
-            { upsert: true },
-        );
+        await Course.updateOne({ id: course.id }, { $set: course }, { upsert: true });
     }
 
-    async deleteCourse({
-        courseId,
-    }) { 
-        await Course.deleteOne({id: courseId})
+    async deleteCourse({ courseId }) {
+        await Course.deleteOne({ id: courseId });
     }
 
     async getCourse(courseId: number): Promise<ICourse> {
-        return await Course.findOne({id: courseId});
+        return await Course.findOne({ id: courseId });
     }
 }
