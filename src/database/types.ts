@@ -16,3 +16,11 @@ export interface IUser {
     email?: string;
     isAdmin?: boolean;
 }
+
+// Payload for JWT
+export interface IUserPayload {
+    id: number;
+    fname: string;
+    lname: string;
+    isAdmin: boolean;
+}
