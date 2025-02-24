@@ -35,6 +35,20 @@ Coursemate backend provides APIs for managing:
 - category (Array of String, required): Course categories
 - duration (Number, required): Duration of the course in hours
 
+### Building
+
+To run the project:
+
+- Open coursemate directory in terminal or your IDE
+- Run the following commands
+
+ ```sh
+npm install
+npm start
+```
+
+Following these steps will download the necessary packages and runs the backend on your localhost in port **8080**
+
 ## API Endpoints
 
 There are 3 endpoints:
@@ -42,6 +56,8 @@ There are 3 endpoints:
 - admin : manages creation/deletion of courses
 - users : manages CRUD of users
 - courses : manages enrollment and opting out of courses
+
+Except the `/users` & `/token/refresh` endpoints, every other endpoints requires a authorized/logged in user
 
 ### USAGE
 
@@ -52,6 +68,8 @@ The guide follows the format:
 | `/endpoint` **<REQUEST_METHOD>** \<description>
 
 ### /admin
+
+> All endpoints of this route requires user with an admin role
 
 - `/courses` **POST** creates a course.
 
@@ -70,13 +88,12 @@ The guide follows the format:
 
 ### /course
 
-- `/enroll` **POST** enrolls the user to a course.
+- `/enroll` **GET** enrolls the user to a course.
 
-    The body of this should contain:
+    The query should contain:
 
     | Argument | Type | Description |
     | -------- | ---- | ----------- |
-    | userId | number | The id of user |
     | courseId | number | The id of course |
 
 - `/optout` **GET** optout the user from a given course.
@@ -92,11 +109,10 @@ The guide follows the format:
     | id | number | user's id |
     | fname | string | user's first name |
     | lname | string | user's last name |
-    | email (optional) | string | user's email |
-    | isAdmin (optional) | boolean | user's admin status |
 
 - `/users` **GET** returns list of user objects created.
-- `/users/{userId}/courses` **GET** lists the courses enrolled by the user.
+- `/users/courses` **GET** lists the courses enrolled by the user.
+- `/users` **DELETE** Deletes the currently active user
 
 ### Response Codes
 
