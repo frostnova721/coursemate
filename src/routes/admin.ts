@@ -1,10 +1,13 @@
 import { Router } from "express";
 import Database from "../database/database";
 import { ICourse, IUser } from "../database/types";
+import { verifyAdmin } from "../middlewares/adminVerifier";
 
 const router = Router();
 
 const db = new Database();
+
+router.use(verifyAdmin()); // append the verifier mw
 
 router.post("/courses", async (req, res) => {
     const {
